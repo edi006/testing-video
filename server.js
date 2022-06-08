@@ -18,7 +18,7 @@ const peerServer = ExpressPeerServer(server, {
   },
 });
 
-// app.use("/peerjs", peerServer);
+app.use("/peerjs", peerServer);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
