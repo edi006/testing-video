@@ -4,16 +4,21 @@ const server = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
 app.set("view engine", "ejs");
 const io = require("socket.io")(server, {
+  transports: ['websocket'],
   cors: {
     origin: '*'
-  }
+  },
 });
 const { ExpressPeerServer } = require("peer");
 const peerServer = ExpressPeerServer(server, {
   debug: true,
+  transports: ['websocket'],
+  cors: {
+    origin: '*'
+  },
 });
 
-app.use("/peerjs", peerServer);
+// app.use("/peerjs", peerServer);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -34,4 +39,4 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(process.env.PORT || 3030);
+server.listen(process.env.PORT || 3000);
