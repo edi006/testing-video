@@ -65,7 +65,7 @@ async function server(){
         });
 
     });
-    http.listen(3000, () => console.log('server open !!'));
+    http.listen(process.env.PORT || 3000, () => console.log('server open !!'));
 }
 
 server();
