@@ -19,7 +19,7 @@ showChat.addEventListener("click", () => {
   document.querySelector(".header__back").style.display = "block";
 });
 
-const user = prompt("Enter your name");
+const user = USER;
 
 var peer = new Peer(undefined, {
   path: "/peerjs",
