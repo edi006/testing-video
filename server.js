@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const server = require("http").Server(app);
 const { v4: uuidv4 } = require("uuid");
+const url = require("url");
 app.set("view engine", "ejs");
 const io = require("socket.io")(server, {
   cors: {
@@ -17,11 +18,14 @@ app.use("/peerjs", peerServer);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.redirect(`/${uuidv4()}`);
+  res.render("index");
 });
 
-app.get("/:room", (req, res) => {
-  res.render("room", { roomId: req.params.room });
+app.get("/room", (req, res) => {
+  var q = url.parse(req.url, true);
+  var room = q.query.room;
+  var user = q.query.user;
+  res.render("room", { room: req.params.room, user: req.params.fruitColor });
 });
 
 io.on("connection", (socket) => {
